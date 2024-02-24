@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from "mongoose";
 import denv from "dotenv";
+import cors from 'cors';
 import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRouter.js";
 denv.config();
@@ -12,7 +13,14 @@ const port=process.env.PORT||9000
 const app=express();
 app.use(express.json());
 app.use(express.urlencoded());
+const corsOptions = {
+    origin: true, //included origin as true
+    credentials: true, //included credentials as true
+};
 
+app.use(cors(corsOptions));
+
+ 
 
 app.use("/api/v1/auth/",authRouter);
 app.use("/api/v1/user/",userRouter);
@@ -22,7 +30,17 @@ app.get('/',(req,res)=>{
     })
 })
 
-mongoose.connect(process.env.MONGODB).then(()=>console.log("Db connected successfuly!!")).catch((error)=>{
+app.use((err,req,res,next)=>{
+    const statusCode=err.statusCode||500;
+    const errorMessage=err.message||"Internal server error";
+    res.status(statusCode).json({
+        success:false,
+        statusCode,
+        errorMessage
+    })
+})
+
+mongoose.connect(process.env.MONGODB).then(()=>console.log("MongoDb is connected!")).catch((error)=>{
     console.log(error.message);
 })
 
