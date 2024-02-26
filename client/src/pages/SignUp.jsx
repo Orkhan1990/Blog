@@ -14,13 +14,16 @@ const SignUp = () => {
   });
   //FILLED INPUT
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
 
   //SUBMIT FORM
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!formData.username||!formData.email||!formData.password){
+      return setError("All fields required!");
+    }
     setLoading(true);
     try {
       const res = await fetch("http://localhost:3001/api/v1/auth/signUp", {

@@ -1,5 +1,5 @@
 
-import { Button, TextInput } from "flowbite-react";
+import { Button, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
@@ -16,11 +16,14 @@ const SignIn = () => {
  const navigate=useNavigate();
 
   const handleChange=(e)=>{
-  setFormData({...formData,[e.target.id]:e.target.value})
+  setFormData({...formData,[e.target.id]:e.target.value.trim()})
   }
 
   const handleSubmit=async(e)=>{
     e.preventDefault();
+    if(!formData.username||!formData.email||!formData.password){
+      return setError("All fields required!");
+    }
     setLoading(true)
     try {
       const res=await fetch("http://localhost:3001/api/v1/auth/signIn",{
@@ -77,6 +80,14 @@ const SignIn = () => {
             <TextInput type="password" id="password" placeholder="****************" onChange={handleChange} />
           </div>
           <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg">
+            {
+              loading?(
+              <div>
+                <Spinner size={"sm"}/>
+                <span className="pl-3">Loading....</span>
+              </div>):"Sign in"
+            }
+            
             Sign In
           </Button>
         </form>
