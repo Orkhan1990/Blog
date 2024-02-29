@@ -3,17 +3,23 @@ import { Button, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
+import { getLoading,getSuccess,getFailure } from "../redux/features/authSlice";
+import { useDispatch,useSelector} from "react-redux";
+
 
 
 const SignIn = () => {
-  const[loading,setLoading]=useState(false);
-  const[error,setError]=useState(false);
   const[formData,setFormData]=useState({
     email:"",
     password:""
   });
-   
+
+
  const navigate=useNavigate();
+ const dispatch=useDispatch();
+ const{error,loading,currentUser}=useSelector(state=>state.auth);
+ console.log(currentUser);
+
 
   const handleChange=(e)=>{
   setFormData({...formData,[e.target.id]:e.target.value.trim()})
@@ -22,9 +28,9 @@ const SignIn = () => {
   const handleSubmit=async(e)=>{
     e.preventDefault();
     if(!formData.username||!formData.email||!formData.password){
-      return setError("All fields required!");
+      return dispatch(getFailure("All fields required!"))
     }
-    setLoading(true)
+    dispatch(getLoading());
     try {
       const res=await fetch("http://localhost:3001/api/v1/auth/signIn",{
         method:"POST",
@@ -38,19 +44,18 @@ const SignIn = () => {
       const data=await res.json();
 
       if(data.success===false){
-         setError(data.errorMessage)
-         setLoading(false);
+         dispatch(getFailure(data.errorMessage))
+        
       }
 
       if(res.ok){
         navigate("/")
-        setLoading(false)
+        dispatch(getSuccess(data.rest))
       }
       
       
     } catch (error) {
-      setError(error.message);
-      setLoading(false)
+        dispatch(getFailure(error.message))
     }
 
   }
