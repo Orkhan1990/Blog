@@ -52,6 +52,7 @@ export const signIn=async(req,res,next)=>{
 };
 
 export const google=async(req,res,next)=>{
+    // console.log(req.body);
     const {username,email,image}=req.body;
     try {
         const existUser=await User.findOne({email});

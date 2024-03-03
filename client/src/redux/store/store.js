@@ -3,12 +3,14 @@ import authReducer from "../features/authSlice.js";
 import {persistReducer} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import persistStore from 'redux-persist/es/persistStore';
+import themeReducer from "../features/themeSlice.js"
 
 
 
 
 const rootReducer=combineReducers({
-  auth:authReducer
+  auth:authReducer,
+  theme:themeReducer
 })
 
 const persistConfig={
