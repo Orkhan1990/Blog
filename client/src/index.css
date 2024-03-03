@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.notFound{
+ background: url("https://blog.thomasnet.com/hubfs/shutterstock_774749455.jpg");
+ background-repeat: no-repeat;
+ background-size: cover;
+ background-position: center;
+ object-fit: cover;
+  min-height: 100vh;
+}
