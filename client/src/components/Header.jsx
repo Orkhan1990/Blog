@@ -1,10 +1,13 @@
 import { Button, Navbar, TextInput } from "flowbite-react";
 import { Link,useLocation} from "react-router-dom";
 import { FaSearch, FaMoon } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 
 const Header = () => {
     const{pathname}=useLocation();
+    const{currentUser}=useSelector(state=>state.auth);
+    console.log(currentUser.image);
 
   return (
     <Navbar className="border-b-2">
@@ -33,9 +36,12 @@ const Header = () => {
         <Button className="w-12 h-10 hidden md:inline" pill color="gray">
           <FaMoon />
         </Button>
-        <Link to={"/sign-in"}>
+        {
+          currentUser?(<Link to={"/profile"}><img src={currentUser.image} alt="profile" className="w-10 h-10 rounded-full"/></Link>):(<Link to={"/sign-in"}>
           <Button gradientDuoTone="purpleToBlue" outline>SignIn</Button>
-        </Link>
+        </Link>)
+        }
+       
         <Navbar.Toggle/>
       </div>
 

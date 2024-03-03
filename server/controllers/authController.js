@@ -50,3 +50,32 @@ export const signIn=async(req,res,next)=>{
         next(error);
     }
 };
+
+export const google=async(req,res,next)=>{
+    const {username,email,image}=req.body;
+    try {
+        const existUser=await User.findOne({email});
+        if(existUser){
+            const token=jwtToken.sign({id:existUser._id},process.env.JWT_SECRET);
+            const{password:pass,...rest}=existUser._doc;
+            res.cookie("access_token",token,{httpOnly:true});
+          return res.status(200).json(rest)
+        }
+        const generatePAssword=Math.random().toString(36).slice(-8)+Math.random().toString(36).slice(-8);
+        const hashPassword=await bcrypt.hash(generatePAssword,10);
+        const newUser=await User.create({
+            username:(username.split(" ").join("")).toLowerCase()+Math.random().toString(36).slice(-8),
+            email,
+            password:hashPassword,
+            image
+        });
+        await newUser.save();
+        const token=jwtToken.sign({id:newUser._id},process.env.JWT_SECRET);
+        res.cookie("access_token",token,{httpOnly:true});
+        console.log(newUser);
+        const{password:pass,...rest}=newUser._doc;
+        res.status(200).json(rest)
+    } catch (error) {
+          next(error)
+    }
+}
