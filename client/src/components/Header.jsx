@@ -3,14 +3,31 @@ import { Link, useLocation } from "react-router-dom";
 import { FaSearch, FaMoon, FaSun } from "react-icons/fa";
 import { useSelector,useDispatch } from "react-redux";
 import { isDark } from "../redux/features/themeSlice";
+import {signOutFromAccount} from "../redux/features/authSlice";
+
 
 const Header = () => {
   const { pathname } = useLocation();
   const dispatch=useDispatch();
   const { currentUser } = useSelector((state) => state.auth);
   const{theme}=useSelector(state=>state.theme);
-  console.log(currentUser);
 
+     //SIGN OUT
+     const signOut=async()=>{
+      const res=await fetch("http://localhost:3001/api/v1/auth/signOut",{
+        method:"GET",
+        credentials: "include", // added this part
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+    
+      const data=await res.json();
+      if(res.ok){
+        dispatch(signOutFromAccount())
+      }
+       console.log((data));
+    }
   return (
     <Navbar className="border-b-2">
       <Link
@@ -49,7 +66,7 @@ const Header = () => {
               </Dropdown.Header>
               <Link to={"dashboard?tab=profile"}><Dropdown.Item>Profile</Dropdown.Item></Link>
               <Dropdown.Divider/>
-              <Dropdown.Item>Sign out</Dropdown.Item>
+              <Dropdown.Item onClick={signOut}>Sign out</Dropdown.Item>
             </Dropdown>
           </>
         ) : (

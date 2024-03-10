@@ -12,6 +12,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import {getFailure,getSuccess,getLoading,deleteFailure,deleteSuccess,signOutFromAccount} from "../redux/features/authSlice";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 
 const DashProfile = () => {
@@ -231,7 +232,9 @@ const signOut=async()=>{
         >
           {loading?"Uploading....":"Upload"}
         </Button>
+         {currentUser.isAdmin&&<Link to="/post"><Button type="button" className="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg">Create Post</Button></Link>}
       </form>
+
       <div className="w-full flex justify-between mt-2">
         <span onClick={() => setOpenModal(true)} className="text-red-500 cursor-pointer hover:transition hover:duration-75 hover:text-red-800">
           Delete Account

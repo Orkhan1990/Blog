@@ -1,6 +1,6 @@
 
-import { Button, Spinner, TextInput } from "flowbite-react";
-import { useState } from "react";
+import { Alert, Button, Spinner, TextInput } from "flowbite-react";
+import { useEffect, useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
 import { getLoading,getSuccess,getFailure } from "../redux/features/authSlice";
@@ -18,8 +18,12 @@ const SignIn = () => {
  const navigate=useNavigate();
  const dispatch=useDispatch();
  const{error,loading,currentUser}=useSelector(state=>state.auth);
- console.log(currentUser);
+ console.log(currentUser,error);
 
+
+ useEffect(()=>{
+    dispatch(getFailure())
+ },[])
 
   const handleChange=(e)=>{
   setFormData({...formData,[e.target.id]:e.target.value.trim()})
@@ -101,7 +105,7 @@ const SignIn = () => {
             Sing up
           </Link>
         </p>
-        {error && <p className="text-red-700 text-sm">{error}</p>}
+        {error && <Alert color="failure">{error}</Alert>}
       </div>
     </div>
   );
