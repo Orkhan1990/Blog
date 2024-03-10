@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from "mongoose";
 import denv from "dotenv";
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRouter.js";
 denv.config();
@@ -19,11 +20,12 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(cookieParser());
 
  
 
-app.use("/api/v1/auth/",authRouter);
-app.use("/api/v1/user/",userRouter);
+app.use("/api/v1/auth",authRouter);
+app.use("/api/v1/user",userRouter);
 app.get('/',(req,res)=>{
     res.status(200).json({
         message:"Hello World"

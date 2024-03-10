@@ -39,7 +39,7 @@ const Header = () => {
          {theme==="light"?(<FaMoon />):(<FaSun/>)} 
         </Button>
         {currentUser ? (
-          <Link to={"/dashboard?tab=profile"}>
+          <>
             <Dropdown arrowIcon={false} inline label={
               <Avatar alt="profile picture" img={currentUser.image} rounded/>
             }>
@@ -47,15 +47,15 @@ const Header = () => {
                 <div>{currentUser.username}</div>
                 <div className="font-semibold">{currentUser.email}</div>
               </Dropdown.Header>
-              <Dropdown.Item><Link to={"dashboard?tab=profile"}>Profile</Link></Dropdown.Item>
+              <Link to={"dashboard?tab=profile"}><Dropdown.Item>Profile</Dropdown.Item></Link>
               <Dropdown.Divider/>
               <Dropdown.Item>Sign out</Dropdown.Item>
             </Dropdown>
-          </Link>
+          </>
         ) : (
           <Link to={"/sign-in"}>
             <Button gradientDuoTone="purpleToBlue" outline>
-              SignIn
+              Sign in
             </Button>
           </Link>
         )}

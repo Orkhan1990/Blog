@@ -27,7 +27,7 @@ const SignIn = () => {
 
   const handleSubmit=async(e)=>{
     e.preventDefault();
-    if(!formData.username||!formData.email||!formData.password){
+    if(!formData.email||!formData.password){
       return dispatch(getFailure("All fields required!"))
     }
     dispatch(getLoading());
@@ -42,15 +42,14 @@ const SignIn = () => {
       })
 
       const data=await res.json();
-
+       console.log(data);
       if(data.success===false){
          dispatch(getFailure(data.errorMessage))
         
       }
-
       if(res.ok){
         navigate("/")
-        dispatch(getSuccess(data.rest))
+        dispatch(getSuccess(data))
       }
       
       
@@ -93,7 +92,6 @@ const SignIn = () => {
               </div>):"Sign in"
             }
             
-            Sign In
           </Button>
         </form>
         <OAuth/>

@@ -21,13 +21,26 @@ export const authSlice=createSlice({
       },
       getFailure:(state,action)=>{
           state.error=action.payload,
-          state.currentUser=null,
           state.loading=false
+      },
+      deleteSuccess:(state)=>{
+        state.currentUser=null,
+        state.loading=false,
+        state.error=null
+      },
+      deleteFailure:(state,action)=>{
+        state.error=action.payload,
+        state.loading=false
+      },
+      signOutFromAccount:(state)=>{
+        state.currentUser=null,
+        state.error=null,
+        state.loading=false
       }
     }
 })
 
-export const { getLoading, getSuccess,getFailure } = authSlice.actions
+export const { getLoading, getSuccess,getFailure,deleteFailure,deleteSuccess,signOutFromAccount} = authSlice.actions
 
 export default authSlice.reducer;
 
