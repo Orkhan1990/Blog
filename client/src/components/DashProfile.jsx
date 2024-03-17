@@ -164,7 +164,7 @@ const signOut=async()=>{
 
 
   return (
-    <div className="w-full max-w-lg mx-auto p-3">
+    <div className=" max-w-lg mx-auto p-3 ">
       <h1 className="text-center text-4xl font-bold mt-10 mb-5">Profile</h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input

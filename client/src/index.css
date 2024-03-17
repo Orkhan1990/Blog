@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 
+body{
+  height: 100vh;
+}
+
+.ql-editor{
+  font-size: 1.05rem;
+}
+
 .notFound{
  background: url("https://blog.thomasnet.com/hubfs/shutterstock_774749455.jpg");
  background-repeat: no-repeat;

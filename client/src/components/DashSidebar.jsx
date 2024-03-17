@@ -1,7 +1,9 @@
 import { Sidebar } from 'flowbite-react';
-import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiUser} from 'react-icons/hi';
+import { HiArrowSmRight, HiChartPie, HiShoppingBag, HiUser} from 'react-icons/hi';
 import { useDispatch,useSelector } from 'react-redux';
 import { signOutFromAccount } from '../redux/features/authSlice';
+import { MdLocalPostOffice } from "react-icons/md";
+
 
 const DashSidebar = ({tab}) => {
      const{currentUser}=useSelector(state=>state.auth)
@@ -35,8 +37,8 @@ const DashSidebar = ({tab}) => {
           <Sidebar.Item active={tab==="profile"} href={"dashboard?tab=profile"} icon={HiUser} label={currentUser.isAdmin?"Admin":"User"} labelColor="dark">
             Profile
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiInbox} label="3">
-            Inbox
+          <Sidebar.Item href={"dashboard?tab=post"} icon={MdLocalPostOffice} label="3">
+            Post
           </Sidebar.Item>
           <Sidebar.Item href="#" icon={HiUser}>
             Users

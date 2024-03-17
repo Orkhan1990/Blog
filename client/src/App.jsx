@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import Protected from "./components/Protected";
 import NotFound from "./pages/NotFound";
 import Post from "./pages/Post";
+import IsAdminPrivatePage from "./components/IsAdminPrivatePage";
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/projects" element={<Projects />} />
+        </Route>
+        <Route element={<IsAdminPrivatePage/>}>
           <Route path="/post" element={<Post />} />
         </Route>
         <Route path="/sign-in" element={<SignIn />} />
