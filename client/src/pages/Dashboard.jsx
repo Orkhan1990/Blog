@@ -24,7 +24,7 @@ const Dashboard = () => {
 
       <div className="w-full">
         {tab === "profile" && <DashProfile />}
-        {tab === "post" && <DashPost />}
+        {tab === "posts" && <DashPost />}
       </div>
       {/* <div className="w-full">
       </div> */}

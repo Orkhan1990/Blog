@@ -13,7 +13,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate } from "react-router-dom";
 
-const Post = () => {
+const CreatePost = () => {
   const [formData, setFormData] = useState({});
   const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
@@ -182,4 +182,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default CreatePost;

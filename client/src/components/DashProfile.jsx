@@ -232,7 +232,7 @@ const signOut=async()=>{
         >
           {loading?"Uploading....":"Upload"}
         </Button>
-         {currentUser.isAdmin&&<Link to="/post"><Button type="button" className="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg">Create Post</Button></Link>}
+         {currentUser.isAdmin&&<Link to="/createPost"><Button type="button" className="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg">Create Post</Button></Link>}
       </form>
 
       <div className="w-full flex justify-between mt-2">
