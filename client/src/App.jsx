@@ -11,6 +11,7 @@ import Protected from "./components/Protected";
 import NotFound from "./pages/NotFound";
 import IsAdminPrivatePage from "./components/IsAdminPrivatePage";
 import CreatePost from "./pages/CreatePost";
+import UpdatePost from "./pages/UpdatePost";
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
         </Route>
         <Route element={<IsAdminPrivatePage/>}>
           <Route path="/createPost" element={<CreatePost />} />
+          <Route path="/updatePost/:id" element={<UpdatePost />} />
+
         </Route>
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />

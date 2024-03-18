@@ -84,3 +84,21 @@ export const deletePost = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getPost=async(req,res,next)=>{
+
+    if(req.user.id!==req.params.userId||!req.user.isAdmin){
+        return next(errorHandler(401,"Can not upadate the post!"))
+    }
+    try {
+         const post=await Post.findById(req.params.id);
+         if(!post){
+            return next(errorHandler(401,"The post not exist!"))
+         }
+
+         res.status(200).json(post);
+        
+    } catch (error) {
+        next(error)
+    }
+}
