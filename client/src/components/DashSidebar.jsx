@@ -62,10 +62,11 @@ const DashSidebar = ({ tab }) => {
               </Sidebar.Item>
             </Link>
           )}
-
-          <Sidebar.Item href="#" icon={HiUser}>
+          <Link to="/dashboard?tab=users">
+          <Sidebar.Item active={tab==="users"}  icon={HiUser} as={"div"}>
             Users
           </Sidebar.Item>
+          </Link>
           <Sidebar.Item href="#" icon={HiShoppingBag}>
             Products
           </Sidebar.Item>

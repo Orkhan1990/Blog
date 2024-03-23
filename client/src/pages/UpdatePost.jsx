@@ -16,7 +16,13 @@ import { useSelector } from "react-redux";
 
 const UpdatePost = () => {
   const [formData, setFormData] = useState({});
-  const[post,setPost]=useState(null)
+  // const[post,setPost]=useState({
+  //   title:"",
+  //   content:"",
+  //   slug:"",
+  //   image:"",
+  //   category:"uncategorized"
+  // })
   const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
   const [uploadImageError, setUploadImageError] = useState(null);
@@ -29,7 +35,7 @@ const UpdatePost = () => {
 
   const navigate = useNavigate();
 
-  console.log(formData, error,id,post);
+  console.log(formData, error,downloadImageFromFirebase);
 
 
   //RETRIVE DATA FROM DATABASE
@@ -49,7 +55,7 @@ const UpdatePost = () => {
            return setError(data.message);
          }
          if(res.ok){
-           setPost(data);
+           setFormData(data);
          }
       } catch (error) {
           setError(error.message)
@@ -63,7 +69,9 @@ const UpdatePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:3001/api/v1/post/create", {
+      const res = await fetch(`http://localhost:3001/api/v1/post/update/${formData._id}/${currentUser._id
+    
+    }`, {
         method: "POST",
         credentials: "include", // added this part
         headers: {
@@ -134,7 +142,7 @@ const UpdatePost = () => {
             type="text"
             placeholder="Title"
             id="title"
-            defaultValue={post.title}
+            value={formData.title}
             className="flex-1"
             onChange={(e) =>
               setFormData({ ...formData, title: e.target.value })
@@ -144,14 +152,14 @@ const UpdatePost = () => {
             onChange={(e) =>
               setFormData({ ...formData, category: e.target.value })
             }
-            defaultValue={"uncategorized"}
+            value={formData.category}
             className="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option value="uncategorized" selected disabled>
               Select a category
             </option>
             <option value="javascript">Javascript</option>
-            <option value="react">React</option>
+            <option value="react">React.js</option>
             <option value="nodejs">Node.js</option>
             <option value="nextjs">Next.js</option>
           </select>
@@ -183,9 +191,9 @@ const UpdatePost = () => {
             )}
           </Button>
         </div>
-        {downloadImageFromFirebase && (
+        {formData && (
           <img
-            src={downloadImageFromFirebase}
+            src={formData.image}
             alt="post image"
             className="w-full h-30"
           />
@@ -200,6 +208,7 @@ const UpdatePost = () => {
           placeholder="Write something"
           className="h-72 mb-12"
           required
+          value={formData.content}
         />
         {result && <Alert color={"info"}>{result}</Alert>}
         <Button

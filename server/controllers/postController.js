@@ -95,10 +95,34 @@ export const getPost=async(req,res,next)=>{
          if(!post){
             return next(errorHandler(401,"The post not exist!"))
          }
-
+         console.log(post);
          res.status(200).json(post);
         
     } catch (error) {
         next(error)
     }
+}
+
+
+export const updatePost=async(req,res,next)=>{
+  if(!req.user.isAdmin){
+    return next(errorHandler(401,"Only admin can update this post!"))
+  }
+  if(req.user.id!==req.params.userId){
+    return next(errorHandler(401,"UnAuthorized"))
+  }
+  try {
+
+    const updateData=await Post.findByIdAndUpdate(req.params.id,{
+      $set:{
+        title:req.body.title,
+        category:req.body.category,
+        image:req.body.image,
+        content:req.body.content,
+      }},{new:true})
+
+      res.status(200).json(updateData);
+  } catch (error) {
+    next(error)
+  }
 }
