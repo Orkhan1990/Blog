@@ -19,3 +19,29 @@ body{
  object-fit: cover;
   min-height: 100vh;
 }
+.post_content p{
+margin-bottom: 0.5rem;
+}
+.post_content h1{
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: sans-serif;
+  margin:1.5rem 0;
+}
+.post_content h2{
+  font-size: 1.4rem;
+  font-family: sans-serif;
+  margin:1.5rem 0;
+}
+.post_content a{
+  text-decoration: none;
+  color: rgb(73,149,199);
+}
+
+.post_content a:hover{
+  text-decoration:underline;
+}
+
+.dark .post_content a{
+  color: red;
+}
