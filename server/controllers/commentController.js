@@ -1,4 +1,5 @@
 import Comment from "../models/comment.model.js";
+import errorHandler from "../utils/errorHandler.js";
 
 export const createComment = async (req, res, next) => {
   const { comment, userId, postId } = req.body;
@@ -21,3 +22,19 @@ export const createComment = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getPostComment=async(req,res,next)=>{
+  const{postId}=req.params;
+  try {
+    const comments=await Comment.find({
+      postId
+    }).sort({createdAt:-1});
+    if(!comments){
+      return next(errorHandler(401,"Comments not exist!"))
+    }
+    res.status(200).json(comments)
+    
+  } catch (error) {
+    next(error)
+  }
+}

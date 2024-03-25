@@ -118,3 +118,23 @@ export const deleteUserFromUserList=async(req,res,next)=>{
 
   }
 }
+
+
+export const getUser=async(req,res,next)=>{
+  const {id}=req.params;
+  if(!id){
+    return next(errorHandler(401,"User not exist!"))
+  }
+  try {
+
+    const user=await User.findById(id);
+    if(!user){
+      return next(errorHandler(401,"User not exist!"))
+    }
+    const{password,...rest}=user._doc
+    res.status(201).json(rest);
+    
+  } catch (error) {
+    next(error)
+  }
+}
